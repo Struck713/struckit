@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'uk.nstr.toolkit'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://jitpack.io' }
+    flatDir { dirs 'libs' }
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot:1.12.2-R0.1-SNAPSHOT'
+    compileOnly 'org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT'
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+}
