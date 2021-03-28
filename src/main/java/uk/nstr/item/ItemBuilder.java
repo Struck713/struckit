@@ -7,9 +7,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import uk.nstr.item.impl.ItemBuilder_1_8;
 import uk.nstr.item.impl.ItemBuilder_1_8_PLUS;
+import uk.nstr.util.ReflectionUtil;
 import uk.nstr.util.TextUtil;
 import uk.nstr.util.VersionUtil;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -126,16 +128,7 @@ public abstract class ItemBuilder {
      * @param level the level
      * @return this ItemBuilder
      */
-    public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        if (enchantment.canEnchantItem(this.itemStack) &&
-                level <= enchantment.getMaxLevel()) {
-            this.itemStack.addEnchantment(enchantment, level);
-            return this;
-        }
-
-        this.itemStack.addUnsafeEnchantment(enchantment, level);
-        return this;
-    }
+    public abstract ItemBuilder enchantment(Enchantment enchantment, int level);
 
     /**
      * Adds enchantments to the item
@@ -201,6 +194,14 @@ public abstract class ItemBuilder {
         ItemMeta itemMeta = this.itemStack.getItemMeta();
         itemMetaConsumer.accept(itemMeta);
         this.itemStack.setItemMeta(itemMeta);
+    }
+
+    protected ItemStack getItemStack() {
+        return this.itemStack;
+    }
+
+    protected void setItemStack(ItemStack itemStack) {
+        this.itemStack = itemStack;
     }
 
 }

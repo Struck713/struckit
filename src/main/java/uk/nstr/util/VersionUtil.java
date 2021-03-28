@@ -4,13 +4,17 @@ import org.bukkit.Bukkit;
 
 public class VersionUtil {
 
+    public static String getBasePackage() {
+        return Bukkit.getServer().getClass().getPackage().getName();
+    }
+
     /**
      * Uses reflection to get the current version.
      *
      * @return the version, as a String
      */
     public static String getVersion() {
-        final String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        final String packageName = VersionUtil.getBasePackage();
         return packageName.substring(packageName.lastIndexOf('.') + 1);
     }
 
