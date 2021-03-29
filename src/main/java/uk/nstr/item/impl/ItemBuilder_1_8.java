@@ -21,27 +21,23 @@ public class ItemBuilder_1_8 extends ItemBuilder {
 
     @Override
     public ItemBuilder enchantment(Enchantment enchantment, int level) {
-        String enchantmentName = enchantment.getName();
-        String basePackage = VersionUtil.getBasePackage();
-
         //copy to NMS stack
-        Class craftItemStackClass = ReflectionUtil.getClass(basePackage + ".inventory.CraftItemStack");
+        Class craftItemStackClass = ReflectionUtil.getClass(VersionUtil.getCraftBukkit() + ".inventory.CraftItemStack");
         Method copyNMSStackMethod = ReflectionUtil.getMethod(craftItemStackClass, "asNMSCopy", ItemStack.class);
-        Object nmsStack = ReflectionUtil.invoke(copyNMSStackMethod, this.getItemStack());
+        Object nmsStack = ReflectionUtil.invokeStatic(copyNMSStackMethod, this.getItemStack());
         Class nmsStackClass = nmsStack.getClass();
 
         //get enchantment
-        Class enchantmentClass = ReflectionUtil.getClass(basePackage + "Enchantment");
-        Method getEnchantByNameMethod = ReflectionUtil.getMethod(enchantmentClass, "getByName", String.class);
-        Object enchantmentObject = ReflectionUtil.invoke(getEnchantByNameMethod, enchantmentName);
+        Class enchantmentClass = ReflectionUtil.getClass(VersionUtil.getMinecraftServer() + ".Enchantment");
+        Method getEnchantByNameMethod = ReflectionUtil.getMethod(enchantmentClass, "getById", int.class);
+        Object enchantmentObject = ReflectionUtil.invokeStatic(getEnchantByNameMethod, enchantment.getId());
 
-        Method addEnchantment = ReflectionUtil.getMethod(nmsStackClass, "addEnchantment", enchantmentObject.getClass(), Integer.class);
-        ReflectionUtil.invoke(addEnchantment, enchantmentObject, level);
+        Method addEnchantment = ReflectionUtil.getMethod(nmsStackClass, "addEnchantment", enchantmentClass, int.class);
+        ReflectionUtil.invoke(nmsStack, addEnchantment, enchantmentObject, level);
 
         // copy it back
         Method copyBukkitStackMethod = ReflectionUtil.getMethod(craftItemStackClass, "asBukkitCopy", nmsStackClass);
-        this.setItemStack((ItemStack) ReflectionUtil.invoke(copyBukkitStackMethod, nmsStack));
-
+        this.setItemStack((ItemStack) ReflectionUtil.invokeStatic(copyBukkitStackMethod, nmsStack));
         return this;
     }
 

@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
-group 'uk.nstr.toolkit'
+group 'uk.nstr.struckit'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -20,4 +21,16 @@ dependencies {
     compileOnly 'org.bukkit:craftbukkit:1.12.2-R0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.16'
     compileOnly fileTree(include: ['*.jar'], dir: 'libs')
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'uk.nstr.struckit'
+            artifactId = 'struckit'
+            version = '1.0'
+
+            from components.java
+        }
+    }
 }

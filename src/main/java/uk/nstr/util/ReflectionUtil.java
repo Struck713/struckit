@@ -17,13 +17,38 @@ public class ReflectionUtil {
         try {
             return clazz.getMethod(method, params);
         } catch (NoSuchMethodException e) {
+            e.printStackTrace();
             throw new RuntimeException("The method, " + method + ", does not exist in the class, " + clazz.getName() + ".");
         }
     }
 
-    public static Object invoke(Method method, Object... args) {
+    public static Object invokeStatic(Method method, Object... args) {
         try {
-            return method.invoke(null, args);
+
+            if (!method.isAccessible()) {
+                method.setAccessible(true);
+            }
+
+            Object ret = method.invoke(null, args);
+
+            method.setAccessible(false);
+            return ret;
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException("Could not statically invoke, " + method.getName() + ".");
+        }
+    }
+
+    public static Object invoke(Object object, Method method, Object... args) {
+        try {
+
+            if (!method.isAccessible()) {
+                method.setAccessible(true);
+            }
+
+            Object ret = method.invoke(object, args);
+
+            method.setAccessible(false);
+            return ret;
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException("Could not invoke, " + method.getName() + ".");
         }

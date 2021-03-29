@@ -4,8 +4,12 @@ import org.bukkit.Bukkit;
 
 public class VersionUtil {
 
-    public static String getBasePackage() {
-        return Bukkit.getServer().getClass().getPackage().getName();
+    public static String getCraftBukkit() {
+        return "org.bukkit.craftbukkit." + getVersion();
+    }
+
+    public static String getMinecraftServer() {
+        return "net.minecraft.server." + getVersion();
     }
 
     /**
@@ -14,7 +18,7 @@ public class VersionUtil {
      * @return the version, as a String
      */
     public static String getVersion() {
-        final String packageName = VersionUtil.getBasePackage();
+        final String packageName = Bukkit.getServer().getClass().getPackage().getName();
         return packageName.substring(packageName.lastIndexOf('.') + 1);
     }
 
