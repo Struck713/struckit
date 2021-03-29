@@ -16,15 +16,13 @@ public class ConfigLocation {
         double y = section.getDouble("y");
         double z = section.getDouble("z");
         String world = section.getString("world");
-        String mobSet = section.getString("set");
-        return new ConfigLocation(x, y, z, world, mobSet);
+        return new ConfigLocation(x, y, z, world);
     }
 
     private double x;
     private double y;
     private double z;
     private String world;
-    private String mobSet;
 
     public Location toLocation() {
         World world = Bukkit.getWorld(this.world);
