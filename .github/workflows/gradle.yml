@@ -26,6 +26,6 @@ jobs:
       - name: Publish artifact
         run: ./gradlew publish --no-daemon
         env:
-          USERNAME: ${{ secrets.SENTINAL_USER }}
-          TOKEN: ${{ secrets.SENTINAL_TOKEN }}
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COMMIT_HASH: ${{ github.sha }}

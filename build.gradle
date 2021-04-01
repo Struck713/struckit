@@ -30,11 +30,9 @@ dependencies {
 publishing {
     publications {
         shadow(MavenPublication) { publication ->
-            groupId = "uk.nstr"
+            groupId = "uk.nstr.local"
             artifactId = "struckit"
-            if (System.getenv("COMMIT_HASH") != null) {
-                version = "0.1-" + System.getenv("COMMIT_HASH").substring(0, 7)
-            }
+            version = System.getenv("COMMIT_HASH")
 
             project.shadow.component(publication)
         }
