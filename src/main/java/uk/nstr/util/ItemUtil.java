@@ -20,7 +20,7 @@ public class ItemUtil {
     public static ItemStack writeNBT(ItemStack itemStack, String key, String value) {
 
         //get some classes
-        Class nbtTagStringClass = ReflectionUtil.getClass(VersionUtil.getCraftBukkit() + ".NBTTagString");
+        Class nbtTagStringClass = ReflectionUtil.getClass(VersionUtil.getMinecraftServer() + ".NBTTagString");
         Constructor nbtTagStringConstructor = ReflectionUtil.getConstructor(nbtTagStringClass, String.class);
         Object nbtTagString = ReflectionUtil.invoke(nbtTagStringConstructor, value);
 
