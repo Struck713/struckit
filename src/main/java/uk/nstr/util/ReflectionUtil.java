@@ -10,7 +10,7 @@ public class ReflectionUtil {
         try {
             return Class.forName(clazz);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("The class, " + clazz + ", does not exist.");
+            throw new RuntimeException("The class, " + clazz + ", does not exist!");
         }
     }
 
@@ -18,7 +18,7 @@ public class ReflectionUtil {
         try {
             return clazz.getMethod(method, params);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("The method, " + method + ", does not exist in the class, " + clazz.getName() + ".");
+            throw new RuntimeException("The method, " + method + ", does not exist in the class, " + clazz.getName() + "!");
         }
     }
 
@@ -26,7 +26,7 @@ public class ReflectionUtil {
         try {
             return clazz.getConstructor(params);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("Constructor does not exist in the class, " + clazz.getName() + ".");
+            throw new RuntimeException("Constructor does not exist in the class, " + clazz.getName() + "!");
         }
     }
 
@@ -42,7 +42,7 @@ public class ReflectionUtil {
             method.setAccessible(false);
             return ret;
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("Could not statically invoke, " + method.getName() + ".");
+            throw new RuntimeException("Could not statically invoke, " + method.getName() + "!");
         }
     }
 
@@ -58,7 +58,7 @@ public class ReflectionUtil {
             method.setAccessible(false);
             return ret;
         } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("Could not invoke, " + method.getName() + ".");
+            throw new RuntimeException("Could not invoke, " + method.getName() + "!");
         }
     }
 
@@ -74,7 +74,15 @@ public class ReflectionUtil {
 
             return ret;
         } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
-            throw new RuntimeException("Could not invoke, " + constructor.getName() + ".");
+            throw new RuntimeException("Could not invoke, " + constructor.getName() + "!");
+        }
+    }
+
+    public static Object invoke(Class clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new RuntimeException("Could not invoke, " + clazz.getName() + ".class!");
         }
     }
 

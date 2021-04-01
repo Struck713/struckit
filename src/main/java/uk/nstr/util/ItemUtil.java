@@ -33,12 +33,13 @@ public class ItemUtil {
         Class nbtTagCompoundClass = nbtTagCompound.getClass();
 
         //set a key - value pair on the tag
-        Method set = ReflectionUtil.getMethod(nbtTagCompoundClass, "set", String.class, nbtTagStringClass);
-        ReflectionUtil.invoke(nbtTagCompound, set, value, nbtTagString);
+        Class nbtTagBase = ReflectionUtil.getClass(VersionUtil.getMinecraftServer() + ".NBTBase");
+        Method set = ReflectionUtil.getMethod(nbtTagCompoundClass, "set", String.class, nbtTagBase);
+        ReflectionUtil.invoke(nbtTagCompound, set, key, nbtTagString);
 
-        //save the new tag to the NMS stack
-        Method save = ReflectionUtil.getMethod(nmsStackClass, "save", nbtTagCompound.getClass());
-        ReflectionUtil.invoke(nmsStack, save, nbtTagCompound);
+        //set the new tag to the NMS stack
+        Method setTag = ReflectionUtil.getMethod(nmsStackClass, "setTag", nbtTagCompound.getClass());
+        ReflectionUtil.invoke(nmsStack, setTag, nbtTagCompound);
 
         //copy back to bukkit stack
         return ItemUtil.getAsBukkitStack(nmsStack);
@@ -110,8 +111,13 @@ public class ItemUtil {
     }
 
     protected static Object getNBTTagCompound(Object nmsStack) {
+        Class nbtTagCompoundClass = ReflectionUtil.getClass(VersionUtil.getMinecraftServer() + ".NBTTagCompound");
         Method getTag = ReflectionUtil.getMethod(nmsStack.getClass(), "getTag");
-        return ReflectionUtil.invoke(nmsStack, getTag);
+        Object nbtTagCompound = ReflectionUtil.invoke(nmsStack, getTag);
+        if (nbtTagCompound == null) {
+            nbtTagCompound = ReflectionUtil.invoke(nbtTagCompoundClass);
+        }
+        return nbtTagCompound;
     }
 
     protected static ItemStack getAsBukkitStack(Object nmsStack) {

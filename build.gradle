@@ -28,7 +28,7 @@ dependencies {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'uk.nstr.struckit'
+            groupId = 'uk.nstr.local'
             artifactId = 'struckit'
             version = '1.0'
 
