@@ -32,7 +32,7 @@ publishing {
         shadow(MavenPublication) { publication ->
             groupId = "uk.nstr"
             artifactId = "struckit"
-            version = System.getenv("COMMIT_HASH")
+            version = this.getVersion()
 
             project.shadow.component(publication)
         }
