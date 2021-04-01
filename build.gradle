@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'maven'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
     id 'maven-publish'
 }
 
@@ -27,12 +29,24 @@ dependencies {
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId = 'uk.nstr.local'
-            artifactId = 'struckit'
-            version = '1.0'
+        shadow(MavenPublication) { publication ->
+            groupId = "uk.nstr"
+            artifactId = "struckit"
+            if (System.getenv("COMMIT_HASH") != null) {
+                version = "0.1-" + System.getenv("COMMIT_HASH").substring(0, 7)
+            }
 
-            from components.java
+            project.shadow.component(publication)
+        }
+    }
+
+    repositories {
+        maven {
+            url "https://maven.pkg.github.com/Struck713/struckit"
+            credentials {
+                username = System.getenv("USERNAME")
+                password = System.getenv("TOKEN")
+            }
         }
     }
 }

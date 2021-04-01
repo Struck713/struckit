@@ -2,8 +2,7 @@
 [![](https://jitci.com/gh/Struck713/struckit/svg)](https://jitci.com/gh/Struck713/struckit)
 
 ### Want to use it in your project?
-
-I use Jitpack to host this dependency, to use it, simple add this to your repositories in your **build.gradle**:
+I use Jitpack to host this dependency, to use it, simply add this to your repositories in your **build.gradle**:
 ```Gradle
 repositories {
 	...
