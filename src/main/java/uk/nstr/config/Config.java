@@ -1,6 +1,7 @@
 package uk.nstr.config;
 
 import lombok.AllArgsConstructor;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -29,10 +30,15 @@ public abstract class Config {
             this.copyResource();
         }
 
-        this.load();
+        this.reload();
     }
 
-    public abstract void load();
+    public abstract void load(YamlConfiguration configuration);
+
+    public void reload() {
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(this.file);
+        this.load(config);
+    }
 
     protected void copyResource() {
         InputStream stream = this.plugin.getResource(this.name + ".yml");
