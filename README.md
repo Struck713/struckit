@@ -1,7 +1,7 @@
 # struckit
 [![](https://jitci.com/gh/Struck713/struckit/svg)](https://jitci.com/gh/Struck713/struckit)
 
-#### Want to use it in your project?
+### Want to use it in your project?
 
 I use Jitpack to host this dependency, to use it, simple add this to your repositories in your **build.gradle**:
 ```Gradle
@@ -33,5 +33,5 @@ If you're using Maven, it's just as simple:
 </dependency>
 ```
 
-#### What else?
+### What else?
 Not much else to say here right now. Stick around and maybe I will actually write a proper README.
