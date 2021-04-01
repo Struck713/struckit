@@ -30,7 +30,7 @@ dependencies {
 publishing {
     publications {
         shadow(MavenPublication) { publication ->
-            groupId = "uk.nstr.local"
+            groupId = "uk.nstr"
             artifactId = "struckit"
             version = System.getenv("COMMIT_HASH")
 
