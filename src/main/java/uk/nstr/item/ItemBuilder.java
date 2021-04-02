@@ -184,7 +184,7 @@ public abstract class ItemBuilder {
     /**
      * Sets the item to glow.
      */
-    public ItemBuilder glow(Enchantment enchantment) {
+    public ItemBuilder glow() {
         this.enchantment(Enchantment.DURABILITY, 1);
         this.itemFlags(ItemFlag.HIDE_ENCHANTS);
         return this;
