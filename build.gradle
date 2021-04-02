@@ -29,22 +29,12 @@ dependencies {
 
 publishing {
     publications {
-        shadow(MavenPublication) { publication ->
-            groupId = "uk.nstr"
-            artifactId = "struckit"
-            version = this.getVersion()
+        maven(MavenPublication) {
+            groupId = 'uk.nstr.local'
+            artifactId = 'struckit'
+            version = '1.0'
 
-            project.shadow.component(publication)
-        }
-    }
-
-    repositories {
-        maven {
-            url "https://maven.pkg.github.com/Struck713/struckit"
-            credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("TOKEN")
-            }
+            from components.java
         }
     }
 }

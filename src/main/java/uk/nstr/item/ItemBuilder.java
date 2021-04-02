@@ -182,6 +182,15 @@ public abstract class ItemBuilder {
     }
 
     /**
+     * Sets the item to glow.
+     */
+    public ItemBuilder glow(Enchantment enchantment) {
+        this.enchantment(Enchantment.DURABILITY, 1);
+        this.itemFlags(ItemFlag.HIDE_ENCHANTS);
+        return this;
+    }
+
+    /**
      * Builds a Bukkit ItemStack.
      *
      * @return the ItemStack
