@@ -1,5 +1,6 @@
 package uk.nstr.config.items.item;
 
+import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -14,10 +15,10 @@ import java.util.Map;
 
 public class BasicConfigItem extends AbstractConfigItem {
 
-    private ItemBuilder builder;
-    private String name;
-    private List<String> lore;
-    private boolean glow;
+    @Getter private ItemBuilder builder;
+    @Getter private String name;
+    @Getter private List<String> lore;
+    @Getter private boolean glow;
 
     public BasicConfigItem(Material material,
                            String name,

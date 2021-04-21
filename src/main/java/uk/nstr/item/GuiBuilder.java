@@ -30,6 +30,8 @@ public class GuiBuilder implements Listener {
     private Map<Integer, Consumer<Player>> slots;
     private BiConsumer<GuiBuilder, Player> callback;
 
+    private ItemStack background;
+
     public GuiBuilder(JavaPlugin plugin, String name, int size) {
         this.plugin = plugin;
         this.inventory = Bukkit.createInventory(null, size, name);
@@ -39,8 +41,14 @@ public class GuiBuilder implements Listener {
     }
 
     public GuiBuilder setBackground(ItemStack itemStack) {
+        this.setBackground(itemStack, false);
+        return this;
+    }
+
+    public GuiBuilder setBackground(ItemStack itemStack, boolean overwrite) {
+        if (this.background == null) this.background = itemStack;
         for (int i = 0; i<inventory.getSize(); i++) {
-            if (inventory.getItem(i) != null) {
+            if (!overwrite && inventory.getItem(i) != null) {
                 continue;
             }
 
@@ -51,8 +59,13 @@ public class GuiBuilder implements Listener {
     }
 
     public GuiBuilder set(int slot, ItemStack itemStack, Consumer<Player> click) {
-        this.inventory.setItem(slot, itemStack);
+        this.set(slot, itemStack);
         this.slots.put(slot, click);
+        return this;
+    }
+
+    public GuiBuilder set(int slot, ItemStack itemStack) {
+        this.inventory.setItem(slot, itemStack);
         return this;
     }
 
@@ -63,6 +76,12 @@ public class GuiBuilder implements Listener {
 
     public GuiBuilder open(Player player) {
         player.openInventory(this.inventory);
+        return this;
+    }
+
+    public GuiBuilder reset() {
+        this.slots.clear();
+        this.setBackground(this.background, true);
         return this;
     }
 
